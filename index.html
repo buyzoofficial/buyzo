@@ -1712,9 +1712,21 @@ dealsTrack.addEventListener(
     const diff =
       dealStartX - e.changedTouches[0].clientX;
 
-    // SIRF LEFT SWIPE
-    if (diff > 35) {
-      goDeal(dealIndex + 1);
+    if (Math.abs(diff) > 35) {
+
+      // LEFT SWIPE
+      if (diff > 0) {
+        goDeal(dealIndex + 1);
+      }
+
+      // RIGHT SWIPE
+      else {
+        // 1st product par right swipe disabled
+        if (dealIndex > 0) {
+          goDeal(dealIndex - 1);
+        }
+      }
+
     }
 
   },
