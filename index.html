@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BUYZO</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f2f4f7;
+  color:#111;
+  padding-bottom:78px;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  width:100%;
+  max-width:700px;
+  margin:auto;
+  background:#fff;
+  min-height:100vh;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+  background:#0868df;
+  padding:14px 16px 16px;
+  color:#fff;
+}
+
+.headerTop{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.buyzoLogo{
+  width:82px;
+  height:38px;
+  border-radius:7px;
+  background:#ffd900;
+  color:#111;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:-1px;
+  box-shadow:0 2px 4px #0051b5;
+}
+
+.location{
+  flex:1;
+  font-size:12px;
+  line-height:17px;
+}
+
+.location strong{
+  display:block;
+  font-size:14px;
+}
+
+.cartIcon{
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.cartIcon svg{
+  width:29px;
+  height:29px;
+  stroke:#fff;
+  fill:none;
+  stroke-width:2;
+}
+
+/* SEARCH */
+
+.searchBox{
+  margin-top:12px;
+  height:48px;
+  background:#fff;
+  border-radius:6px;
+  display:flex;
+  align-items:center;
+  padding:0 13px;
+  gap:10px;
+}
+
+.searchBox svg{
+  width:24px;
+  height:24px;
+  stroke:#2874d8;
+  fill:none;
+  stroke-width:2;
+}
+
+.searchBox input{
+  width:100%;
+  border:0;
+  outline:none;
+  font-size:15px;
+  color:#222;
+}
+
+/* ================= CATEGORIES ================= */
+
+.categories{
+  background:#fff;
+  display:flex;
+  justify-content:space-between;
+  padding:14px 10px 10px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+  display:none;
+}
+
+.category{
+  min-width:70px;
+  text-align:center;
+  color:#222;
+}
+
+.categoryIcon{
+  width:48px;
+  height:48px;
+  margin:auto;
+  border-radius:50%;
+  background:#f0f5ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#176fe5;
+}
+
+.categoryIcon svg{
+  width:27px;
+  height:27px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:1.8;
+}
+
+.categoryName{
+  margin-top:7px;
+  font-size:12px;
+  white-space:nowrap;
+}
+
+/* ================= HERO ================= */
+
+.heroArea{
+  background:#fff;
+  padding:12px 10px 4px;
+}
+
+.hero{
+  border-radius:10px;
+  overflow:hidden;
+  position:relative;
+  background:#eee;
+}
+
+.heroTrack{
+  display:flex;
+  transition:transform .35s ease;
+}
+
+.heroSlide{
+  min-width:100%;
+  aspect-ratio:2/1;
+}
+
+.heroSlide img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.heroDots{
+  display:flex;
+  justify-content:center;
+  gap:5px;
+  padding:9px 0 4px;
+}
+
+.heroDot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#bbb;
+}
+
+.heroDot.active{
+  width:18px;
+  border-radius:10px;
+  background:#146ee5;
+}
+
+/* ================= SECTION ================= */
+
+.section{
+  background:#fff;
+  margin-top:8px;
+  padding:17px 12px;
+}
+
+.sectionHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:13px;
+}
+
+.sectionTitle{
+  font-size:20px;
+  font-weight:700;
+}
+
+.viewAll{
+  font-size:13px;
+  color:#146ee5;
+  font-weight:bold;
+}
+
+/* ================= VALUE DEALS ================= */
+
+.dealsWindow{
+  overflow:hidden;
+}
+
+.dealsTrack{
+  display:flex;
+  gap:10px;
+  transition:transform .35s ease;
+}
+
+.dealCard{
+  min-width:calc(50% - 5px);
+  border:1px solid #e3e5e8;
+  border-radius:8px;
+  background:#fff;
+  overflow:hidden;
+  position:relative;
+}
+
+.dealImage{
+  width:100%;
+  aspect-ratio:1/1;
+  background:#f8f8f8;
+}
+
+.dealImage img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+.dealInfo{
+  padding:9px 9px 11px;
+}
+
+.dealName{
+  font-size:13px;
+  font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.dealPrice{
+  font-size:17px;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.dealOld{
+  color:#777;
+  text-decoration:line-through;
+  font-size:11px;
+  margin-left:4px;
+}
+
+.value365{
+  color:#138844;
+  font-size:11px;
+  font-weight:bold;
+  margin-top:4px;
+}
+
+.dealArrow{
+  position:absolute;
+  right:8px;
+  top:44%;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 2px 7px #aaa;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#176fe5;
+  font-size:22px;
+}
+
+.dealDots{
+  display:flex;
+  justify-content:center;
+  gap:5px;
+  margin-top:11px;
+}
+
+.dealDot{
+  width:6px;
+  height:6px;
+  background:#ccc;
+  border-radius:50%;
+}
+
+.dealDot.active{
+  background:#176fe5;
+  width:18px;
+  border-radius:8px;
+}
+
+/* ================= SPOTLIGHT ================= */
+
+.spotlightRow{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+
+.spotlightCard{
+  border-radius:8px;
+  overflow:hidden;
+  background:#f5f5f5;
+  cursor:pointer;
+}
+
+.spotlightCard img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+}
+
+.spotlightName{
+  padding:7px;
+  font-size:12px;
+  font-weight:bold;
+}
+
+/* ================= PRODUCTS ================= */
+
+.productsGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.productCard{
+  background:#fff;
+  border:1px solid #e1e1e1;
+  border-radius:8px;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.productImage{
+  width:100%;
+  aspect-ratio:1/1;
+  background:#fafafa;
+}
+
+.productImage img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+.productInfo{
+  padding:9px;
+}
+
+.productName{
+  font-size:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.productPrice{
+  margin-top:6px;
+  font-size:18px;
+  font-weight:800;
+}
+
+.productOld{
+  color:#777;
+  font-size:12px;
+  text-decoration:line-through;
+  margin-left:5px;
+  font-weight:normal;
+}
+
+.discount{
+  margin-top:4px;
+  color:#168747;
+  font-size:12px;
+  font-weight:bold;
+}
+
+/* ================= PRODUCT PAGE ================= */
+
+.productPage{
+  display:none;
+  min-height:100vh;
+  background:#fff;
+  padding-bottom:20px;
+}
+
+.productTop{
+  height:55px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:0 15px;
+  border-bottom:1px solid #eee;
+  position:sticky;
+  top:0;
+  background:#fff;
+  z-index:20;
+}
+
+.backButton{
+  border:0;
+  background:none;
+  font-size:28px;
+}
+
+.productTopTitle{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.productPageImage{
+  width:100%;
+  height:390px;
+  object-fit:contain;
+  background:#fff;
+  display:block;
+}
+
+.productDetails{
+  padding:17px;
+  border-top:1px solid #eee;
+}
+
+.productDetails h1{
+  font-size:21px;
+  line-height:28px;
+}
+
+.rating{
+  display:inline-block;
+  margin-top:10px;
+  background:#168747;
+  color:#fff;
+  padding:5px 9px;
+  border-radius:4px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.detailPrice{
+  margin-top:13px;
+  font-size:29px;
+  font-weight:800;
+}
+
+.detailOld{
+  color:#777;
+  text-decoration:line-through;
+  font-size:17px;
+  margin-left:7px;
+}
+
+.detailDiscount{
+  color:#168747;
+  font-size:15px;
+  font-weight:bold;
+  margin-top:5px;
+}
+
+.deliveryBox{
+  margin-top:18px;
+  padding:14px;
+  background:#f5f8ff;
+  border-radius:7px;
+  font-size:14px;
+}
+
+.buyBar{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:70px;
+  background:#fff;
+  border-top:1px solid #ddd;
+  display:flex;
+  gap:8px;
+  padding:8px;
+  z-index:30;
+}
+
+.buyBarInner{
+  width:100%;
+  max-width:700px;
+  margin:auto;
+  display:flex;
+  gap:8px;
+}
+
+.addCart{
+  flex:1;
+  border:1px solid #176fe5;
+  background:#fff;
+  color:#176fe5;
+  border-radius:6px;
+  font-weight:bold;
+}
+
+.buyNow{
+  flex:1;
+  border:0;
+  background:#176fe5;
+  color:#fff;
+  border-radius:6px;
+  font-weight:bold;
+}
+
+/* ================= BOTTOM ================= */
+
+.bottomNav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:72px;
+  background:#fff;
+  border-top:1px solid #ddd;
+  z-index:25;
+}
+
+.bottomInner{
+  max-width:700px;
+  height:100%;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+}
+
+.navButton{
+  border:0;
+  background:#fff;
+  color:#555;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:4px;
+  font-size:11px;
+}
+
+.navButton svg{
+  width:25px;
+  height:25px;
+  stroke:currentColor;
+  fill:none;
+  stroke-width:2;
+}
+
+.navButton.active{
+  color:#176fe5;
+  font-weight:bold;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:430px){
+
+  .section{
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  .header{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .heroArea{
+    padding-left:7px;
+    padding-right:7px;
+  }
+
+  .category{
+    min-width:64px;
+  }
+
+  .productsGrid{
+    gap:8px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- ================= HOME ================= -->
+
+<div id="homePage">
+
+<header class="header">
+
+<div class="headerTop">
+
+<div class="buyzoLogo">BUYZO</div>
+
+<div class="location">
+Deliver to
+<strong>📍 India</strong>
+</div>
+
+<div class="cartIcon">
+<svg viewBox="0 0 24 24">
+<path d="M3 4h2l2 11h10l3-8H6"/>
+<circle cx="9" cy="20" r="1.5"/>
+<circle cx="18" cy="20" r="1.5"/>
+</svg>
+</div>
+
+</div>
+
+<div class="searchBox">
+
+<svg viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="7"/>
+<path d="m20 20-4-4"/>
+</svg>
+
+<input id="searchInput"
+placeholder="Search for Products">
+
+</div>
+
+</header>
+
+
+<!-- CATEGORIES -->
+
+<div class="categories" id="categories"></div>
+
+
+<!-- HERO -->
+
+<section class="heroArea">
+
+<div class="hero">
+
+<div class="heroTrack" id="heroTrack"></div>
+
+</div>
+
+<div class="heroDots" id="heroDots"></div>
+
+</section>
+
+
+<!-- TOP VALUE DEALS -->
+
+<section class="section">
+
+<div class="sectionHeader">
+
+<div class="sectionTitle">
+TOP Value Deals
+</div>
+
+<div class="viewAll">
+View All
+</div>
+
+</div>
+
+<div class="dealsWindow">
+
+<div class="dealsTrack" id="dealsTrack"></div>
+
+</div>
+
+<div class="dealDots" id="dealDots"></div>
+
+</section>
+
+
+<!-- SPOTLIGHT -->
+
+<section class="section">
+
+<div class="sectionHeader">
+
+<div class="sectionTitle">
+Brands in Spotlight
+</div>
+
+<div class="viewAll">
+View All
+</div>
+
+</div>
+
+<div class="spotlightRow" id="spotlightRow"></div>
+
+</section>
+
+
+<!-- MORE PRODUCTS -->
+
+<section class="section">
+
+<div class="sectionHeader">
+
+<div class="sectionTitle">
+More products for you
+</div>
+
+</div>
+
+<div class="productsGrid" id="productsGrid"></div>
+
+</section>
+
+</div>
+
+
+<!-- ================= PRODUCT DETAIL ================= -->
+
+<div class="productPage" id="productPage">
+
+<div class="productTop">
+
+<button class="backButton" onclick="closeProduct()">
+‹
+</button>
+
+<div class="productTopTitle">
+BUYZO
+</div>
+
+</div>
+
+<img id="detailImage" class="productPageImage">
+
+<div class="productDetails">
+
+<h1 id="detailName"></h1>
+
+<div class="rating">
+4.3 ★
+</div>
+
+<span style="font-size:13px;color:#555">
+&nbsp; Customer ratings
+</span>
+
+<div>
+
+<span id="detailPrice" class="detailPrice"></span>
+
+<span id="detailOld" class="detailOld"></span>
+
+</div>
+
+<div id="detailDiscount" class="detailDiscount"></div>
+
+<div class="deliveryBox">
+
+🚚 <b>Delivery</b>
+
+<br><br>
+
+FREE delivery available
+
+<br>
+
+Deliver to India
+
+</div>
+
+<h3 style="margin-top:22px">
+Product Details
+</h3>
+
+<p id="detailCategory"
+style="margin-top:10px;color:#555">
+</p>
+
+</div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottomNav">
+
+<div class="bottomInner">
+
+<button class="navButton active"
+onclick="goHome()">
+
+<svg viewBox="0 0 24 24">
+<path d="M3 11 12 3l9 8"/>
+<path d="M5 10v10h14V10"/>
+<path d="M9 20v-6h6v6"/>
+</svg>
+
+Home
+
+</button>
+
+
+<button class="navButton"
+onclick="document.getElementById('productsGrid').scrollIntoView({behavior:'smooth'})">
+
+<svg viewBox="0 0 24 24">
+<rect x="3" y="3" width="7" height="7"/>
+<rect x="14" y="3" width="7" height="7"/>
+<rect x="3" y="14" width="7" height="7"/>
+<rect x="14" y="14" width="7" height="7"/>
+</svg>
+
+Categories
+
+</button>
+
+
+<button class="navButton">
+
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="7" r="4"/>
+<path d="M4 21c1-4 3.7-6 8-6s7 2 8 6"/>
+</svg>
+
+Account
+
+</button>
+
+
+<button class="navButton">
+
+<svg viewBox="0 0 24 24">
+<path d="M3 4h2l2 11h10l3-8H6"/>
+<circle cx="9" cy="20" r="1.5"/>
+<circle cx="18" cy="20" r="1.5"/>
+</svg>
+
+Cart
+
+</button>
+
+</div>
+
+</nav>
+
+
+<script>
+
+/* =================================================
+   BUYZO — IMAGE FILES
+   =================================================
+
+   GitHub me index.html ke SAME folder me:
+
+   banner1.png
+   banner2.png
+   banner3.png
+   banner4.png
+   banner5.png
+   banner6.png
+   banner7.png
+
+   deal1.png ... deal9.png
+
+   spotlight1.png
+   spotlight2.png
+   spotlight3.png
+
+   product1.png
+   product2.png
+   product3.png
+   ...
+   product100.png
+*/
+
+
+/* ================= CATEGORIES ================= */
+
+const categories=[
+
+{
+name:"For You",
+icon:`<svg viewBox="0 0 24 24">
+<path d="M3 11 12 3l9 8"/>
+<path d="M5 10v10h14V10"/>
+<path d="M9 20v-6h6v6"/>
+</svg>`
+},
+
+{
+name:"Fashion",
+icon:`<svg viewBox="0 0 24 24">
+<path d="M8 5c0-2 1.5-3 4-3s4 1 4 3"/>
+<path d="M8 5 4 8l2 13h12l2-13-4-3"/>
+<path d="M8 5c0 3 8 3 8 0"/>
+</svg>`
+},
+
+{
+name:"Mobiles",
+icon:`<svg viewBox="0 0 24 24">
+<rect x="6" y="2" width="12" height="20" rx="2"/>
+<path d="M10 18h4"/>
+</svg>`
+},
+
+{
+name:"Electronics",
+icon:`<svg viewBox="0 0 24 24">
+<rect x="3" y="5" width="18" height="13" rx="1"/>
+<path d="M8 21h8"/>
+<path d="M12 18v3"/>
+</svg>`
+},
+
+{
+name:"Beauty",
+icon:`<svg viewBox="0 0 24 24">
+<path d="M8 3h8v4H8z"/>
+<path d="M10 7v14h4V7"/>
+<path d="M8 21h8"/>
+</svg>`
+},
+
+{
+name:"Home",
+icon:`<svg viewBox="0 0 24 24">
+<path d="M3 11 12 3l9 8"/>
+<path d="M5 10v11h14V10"/>
+<path d="M9 21v-6h6v6"/>
+</svg>`
+},
+
+{
+name:"Travel",
+icon:`<svg viewBox="0 0 24 24">
+<path d="m3 16 18-7"/>
+<path d="M7 14 4 7l2-1 5 6"/>
+<path d="m14 12 4 5"/>
+</svg>`
+}
+
+];
+
+
+/* ================= BANNERS ================= */
+
+const banners=[
+
+"banner1.png",
+"banner2.png",
+"banner3.png",
+"banner4.png",
+"banner5.png",
+"banner6.png",
+"banner7.png"
+
+];
+
+
+/* ================= VALUE DEALS ================= */
+
+const deals=[
+
+{
+image:"deal1.png",
+name:"Product 1",
+price:"₹999",
+old:"₹1,499"
+},
+
+{
+image:"deal2.png",
+name:"Product 2",
+price:"₹1,299",
+old:"₹1,999"
+},
+
+{
+image:"deal3.png",
+name:"Product 3",
+price:"₹1,499",
+old:"₹2,099"
+},
+
+{
+image:"deal4.png",
+name:"Product 4",
+price:"₹1,799",
+old:"₹2,499"
+},
+
+{
+image:"deal5.png",
+name:"Product 5",
+price:"₹1,999",
+old:"₹2,999"
+},
+
+{
+image:"deal6.png",
+name:"Product 6",
+price:"₹2,299",
+old:"₹3,199"
+},
+
+{
+image:"deal7.png",
+name:"Product 7",
+price:"₹2,499",
+old:"₹3,499"
+},
+
+{
+image:"deal8.png",
+name:"Product 8",
+price:"₹2,799",
+old:"₹3,999"
+},
+
+{
+image:"deal9.png",
+name:"Product 9",
+price:"₹2,999",
+old:"₹4,199"
+}
+
+];
+
+
+/* ================= SPOTLIGHT ================= */
+
+const spotlight=[
+
+{
+image:"spotlight1.png",
+name:"Brand 1"
+},
+
+{
+image:"spotlight2.png",
+name:"Brand 2"
+},
+
+{
+image:"spotlight3.png",
+name:"Brand 3"
+}
+
+];
+
+
+/* ================= PRODUCTS ================= */
+
+const products=[
+
+{
+image:"product1.png",
+name:"Realme C100x",
+price:"₹14,000",
+old:"₹16,000",
+discount:"20% OFF",
+category:"Mobiles"
+},
+
+{
+image:"product2.png",
+name:"Product 2",
+price:"₹999",
+old:"₹1,499",
+discount:"33% OFF",
+category:"Fashion"
+},
+
+{
+image:"product3.png",
+name:"Product 3",
+price:"₹1,499",
+old:"₹1,999",
+discount:"25% OFF",
+category:"Beauty"
+},
+
+{
+image:"product4.png",
+name:"Product 4",
+price:"₹2,499",
+old:"₹3,499",
+discount:"29% OFF",
+category:"Electronics"
+},
+
+{
+image:"product5.png",
+name:"Product 5",
+price:"₹799",
+old:"₹1,199",
+discount:"33% OFF",
+category:"Home"
+},
+
+{
+image:"product6.png",
+name:"Product 6",
+price:"₹1,299",
+old:"₹1,799",
+discount:"28% OFF",
+category:"Travel"
+},
+
+{
+image:"product7.png",
+name:"Product 7",
+price:"₹3,999",
+old:"₹4,999",
+discount:"20% OFF",
+category:"Mobiles"
+},
+
+{
+image:"product8.png",
+name:"Product 8",
+price:"₹1,099",
+old:"₹1,599",
+discount:"31% OFF",
+category:"Fashion"
+},
+
+{
+image:"product9.png",
+name:"Product 9",
+price:"₹2,199",
+old:"₹2,999",
+discount:"27% OFF",
+category:"Electronics"
+},
+
+{
+image:"product10.png",
+name:"Product 10",
+price:"₹699",
+old:"₹999",
+discount:"30% OFF",
+category:"Beauty"
+},
+
+{
+image:"product11.png",
+name:"Product 11",
+price:"₹1,899",
+old:"₹2,499",
+discount:"24% OFF",
+category:"Home"
+},
+
+{
+image:"product12.png",
+name:"Product 12",
+price:"₹1,599",
+old:"₹2,199",
+discount:"27% OFF",
+category:"Travel"
+}
+
+];
+
+
+/* ================= CATEGORY UI ================= */
+
+const catBox=
+document.getElementById("categories");
+
+categories.forEach((c,i)=>{
+
+const el=document.createElement("div");
+
+el.className="category";
+
+el.innerHTML=`
+
+<div class="categoryIcon">
+${c.icon}
+</div>
+
+<div class="categoryName">
+${c.name}
+</div>
+
+`;
+
+el.onclick=()=>{
+
+document.querySelectorAll(".category")
+.forEach(x=>x.classList.remove("active"));
+
+el.classList.add("active");
+
+if(c.name==="For You"){
+
+renderProducts(products);
+
+}else{
+
+renderProducts(
+products.filter(p=>p.category===c.name)
+);
+
+}
+
+};
+
+catBox.appendChild(el);
+
+});
+
+
+/* ================= HERO ================= */
+
+const heroTrack=
+document.getElementById("heroTrack");
+
+const heroDots=
+document.getElementById("heroDots");
+
+banners.forEach((file,i)=>{
+
+const slide=document.createElement("div");
+
+slide.className="heroSlide";
+
+slide.innerHTML=
+`<img src="${file}" alt="BUYZO Banner ${i+1}">`;
+
+heroTrack.appendChild(slide);
+
+
+const dot=document.createElement("div");
+
+dot.className=
+"heroDot"+(i===0?" active":"");
+
+dot.onclick=()=>goHero(i);
+
+heroDots.appendChild(dot);
+
+});
+
+
+let heroIndex=0;
+
+function goHero(i){
+
+heroIndex=
+(i+banners.length)%banners.length;
+
+heroTrack.style.transform=
+`translateX(-${heroIndex*100}%)`;
+
+document.querySelectorAll(".heroDot")
+.forEach((d,n)=>{
+
+d.classList.toggle(
+"active",
+n===heroIndex
+);
+
+});
+
+}
+
+setInterval(
+()=>goHero(heroIndex+1),
+3500
+);
+
+
+/* HERO SWIPE */
+
+let touchStart=0;
+
+heroTrack.addEventListener(
+"touchstart",
+e=>{
+touchStart=e.touches[0].clientX;
+},
+{passive:true}
+);
+
+heroTrack.addEventListener(
+"touchend",
+e=>{
+
+let diff=
+e.changedTouches[0].clientX-touchStart;
+
+if(Math.abs(diff)>45){
+
+goHero(
+heroIndex+(diff<0?1:-1)
+);
+
+}
+
+},
+{passive:true}
+);
+
+
+/* ================= DEALS ================= */
+
+const dealsTrack=
+document.getElementById("dealsTrack");
+
+const dealDots=
+document.getElementById("dealDots");
+
+deals.forEach((d,i)=>{
+
+const card=document.createElement("div");
+
+card.className="dealCard";
+
+card.innerHTML=`
+
+<div class="dealImage">
+<img src="${d.image}" alt="${d.name}">
+</div>
+
+<div class="dealInfo">
+
+<div class="dealName">
+${d.name}
+</div>
+
+<div class="dealPrice">
+${d.price}
+
+<span class="dealOld">
+${d.old}
+</span>
+
+</div>
+
+<div class="value365">
+Value 365
+</div>
+
+</div>
+
+`;
+
+card.onclick=()=>openProduct({
+
+image:d.image,
+name:d.name,
+price:d.price,
+old:d.old,
+discount:"Value 365",
+category:"Deals"
+
+});
+
+dealsTrack.appendChild(card);
+
+
+const dot=document.createElement("div");
+
+dot.className=
+"dealDot"+(i===0?" active":"");
+
+dealDots.appendChild(dot);
+
+});
+
+
+let dealIndex=0;
+
+function goDeal(i){
+
+dealIndex=
+(i+deals.length)%deals.length;
+
+const card=
+dealsTrack.children[0];
+
+if(!card)return;
+
+const width=
+card.getBoundingClientRect().width+10;
+
+dealsTrack.style.transform=
+`translateX(-${dealIndex*width}px)`;
+
+document.querySelectorAll(".dealDot")
+.forEach((d,n)=>{
+
+d.classList.toggle(
+"active",
+n===dealIndex
+);
+
+});
+
+}
+
+setInterval(
+()=>goDeal(dealIndex+1),
+3200
+);
+
+
+/* DEAL SWIPE */
+
+dealsTrack.addEventListener(
+"touchstart",
+e=>{
+touchStart=e.touches[0].clientX;
+},
+{passive:true}
+);
+
+dealsTrack.addEventListener(
+"touchend",
+e=>{
+
+let diff=
+e.changedTouches[0].clientX-touchStart;
+
+if(Math.abs(diff)>45){
+
+goDeal(
+dealIndex+(diff<0?1:-1)
+);
+
+}
+
+},
+{passive:true}
+);
+
+
+/* ================= SPOTLIGHT ================= */
+
+const spotBox=
+document.getElementById("spotlightRow");
+
+spotlight.forEach((s,i)=>{
+
+const el=document.createElement("div");
+
+el.className="spotlightCard";
+
+el.innerHTML=`
+
+<img src="${s.image}" alt="${s.name}">
+
+<div class="spotlightName">
+${s.name}
+</div>
+
+`;
+
+el.onclick=()=>openProduct({
+
+image:s.image,
+name:s.name,
+price:"Special Offer",
+old:"",
+discount:"Value 365",
+category:"Brands"
+
+});
+
+spotBox.appendChild(el);
+
+});
+
+
+/* ================= PRODUCTS ================= */
+
+const productBox=
+document.getElementById("productsGrid");
+
+function renderProducts(list){
+
+productBox.innerHTML="";
+
+if(!list.length){
+
+productBox.innerHTML=
+`<div style="grid-column:1/-1;text-align:center;padding:30px;color:#777">
+No products found
+</div>`;
+
+return;
+
+}
+
+list.forEach(p=>{
+
+const el=document.createElement("div");
+
+el.className="productCard";
+
+el.innerHTML=`
+
+<div class="productImage">
+
+<img
+src="${p.image}"
+alt="${p.name}"
+>
+
+</div>
+
+<div class="productInfo">
+
+<div class="productName">
+${p.name}
+</div>
+
+<div class="productPrice">
+
+${p.price}
+
+<span class="productOld">
+${p.old}
+</span>
+
+</div>
+
+<div class="discount">
+${p.discount}
+</div>
+
+</div>
+
+`;
+
+el.onclick=()=>openProduct(p);
+
+productBox.appendChild(el);
+
+});
+
+}
+
+renderProducts(products);
+
+
+/* ================= SEARCH ================= */
+
+document
+.getElementById("searchInput")
+.addEventListener("input",function(){
+
+const q=this.value
+.toLowerCase()
+.trim();
+
+if(!q){
+
+renderProducts(products);
+
+return;
+
+}
+
+renderProducts(
+
+products.filter(p=>
+
+(
+p.name+
+" "+
+p.category
+)
+.toLowerCase()
+.includes(q)
+
+)
+
+);
+
+});
+
+
+/* ================= PRODUCT PAGE ================= */
+
+function openProduct(p){
+
+document.getElementById("homePage")
+.style.display="none";
+
+document.getElementById("productPage")
+.style.display="block";
+
+document.getElementById("detailImage")
+.src=p.image;
+
+document.getElementById("detailName")
+.textContent=p.name;
+
+document.getElementById("detailPrice")
+.textContent=p.price;
+
+document.getElementById("detailOld")
+.textContent=p.old||"";
+
+document.getElementById("detailDiscount")
+.textContent=
+p.discount||"Special Offer";
+
+document.getElementById("detailCategory")
+.textContent=
+"Category: "+(p.category||"BUYZO");
+
+window.scrollTo(0,0);
+
+}
+
+
+/* ================= CLOSE PRODUCT ================= */
+
+function closeProduct(){
+
+document.getElementById("productPage")
+.style.display="none";
+
+document.getElementById("homePage")
+.style.display="block";
+
+window.scrollTo(0,0);
+
+}
+
+
+/* ================= HOME ================= */
+
+function goHome(){
+
+closeProduct();
+
+}
+
+</script>
+
+</body>
+  </html>
