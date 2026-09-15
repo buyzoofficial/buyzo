@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>BUYZO</title>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  background:#f1f3f6;
+  color:#111;
+  padding-bottom:70px;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* HEADER */
+.header{
+  background:linear-gradient(135deg,#2874f0,#0b55d4);
+  padding:13px 12px 18px;
+  color:#fff;
+}
+
+.top{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  background:#ffe500;
+  color:#111;
+  font-size:25px;
+  font-weight:900;
+  padding:8px 12px;
+  border-radius:8px;
+  letter-spacing:-1px;
+  box-shadow:0 2px 5px #0003;
+}
+
+.buyzo-icon{
+  width:35px;
+  height:35px;
+  background:#fff;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#2874f0;
+  font-size:21px;
+  font-weight:900;
+}
+
+.search{
+  margin-top:13px;
+  background:#fff;
+  height:46px;
+  border-radius:5px;
+  display:flex;
+  align-items:center;
+  padding:0 12px;
+  gap:10px;
+}
+
+.search svg{
+  width:21px;
+  fill:#555;
+}
+
+.search input{
+  border:0;
+  outline:0;
+  width:100%;
+  font-size:15px;
+}
+
+/* CATEGORIES */
+.categories{
+  background:#fff;
+  display:flex;
+  overflow-x:auto;
+  gap:20px;
+  padding:12px 10px;
+  scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+  display:none;
+}
+
+.cat{
+  min-width:62px;
+  text-align:center;
+  color:#333;
+  font-size:11px;
+  font-weight:600;
+}
+
+.cat-icon{
+  width:38px;
+  height:38px;
+  margin:auto auto 5px;
+  border-radius:50%;
+  background:#eef4ff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#2874f0;
+}
+
+.cat-icon svg{
+  width:21px;
+  height:21px;
+}
+
+/* LARGE SPACE LIKE REFERENCE */
+.hero-space{
+  height:105px;
+}
+
+/* HERO */
+.hero-wrap{
+  background:#fff;
+  padding:0 8px 8px;
+}
+
+.hero{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  border-radius:4px;
+  background:#ddd;
+  touch-action:pan-y;
+}
+
+.hero-track{
+  display:flex;
+  transition:transform .35s ease;
+}
+
+.banner{
+  min-width:100%;
+  aspect-ratio:16/6;
+  position:relative;
+  background:#eee;
+}
+
+.banner img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.banner-link{
+  position:absolute;
+  inset:0;
+}
+
+.dots{
+  display:flex;
+  justify-content:center;
+  gap:5px;
+  padding:8px 0 2px;
+}
+
+.dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#bbb;
+}
+
+.dot.active{
+  background:#2874f0;
+  width:18px;
+  border-radius:5px;
+}
+
+/* SECTION */
+.section{
+  background:#fff;
+  margin-top:9px;
+  padding:13px 10px;
+}
+
+.section-title{
+  font-size:19px;
+  font-weight:700;
+  margin-bottom:12px;
+}
+
+/* SPOTLIGHT LARGE */
+.spotlight-large{
+  width:100%;
+  border-radius:5px;
+  overflow:hidden;
+  background:#eee;
+}
+
+.spotlight-large img{
+  width:100%;
+  display:block;
+  aspect-ratio:16/6;
+  object-fit:cover;
+}
+
+/* PRODUCTS HORIZONTAL */
+.horizontal{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.horizontal::-webkit-scrollbar{
+  display:none;
+}
+
+.product{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:5px;
+  overflow:hidden;
+  flex:0 0 155px;
+}
+
+.product-img{
+  width:100%;
+  height:155px;
+  object-fit:contain;
+  display:block;
+  background:#fff;
+}
+
+.product-info{
+  padding:8px;
+}
+
+.product-name{
+  font-size:13px;
+  font-weight:600;
+  line-height:18px;
+  height:36px;
+  overflow:hidden;
+}
+
+.price{
+  font-size:17px;
+  font-weight:700;
+  margin-top:6px;
+}
+
+.old-price{
+  color:#888;
+  text-decoration:line-through;
+  font-size:12px;
+  margin-left:4px;
+}
+
+.discount{
+  color:#168c31;
+  font-size:12px;
+  margin-left:4px;
+}
+
+/* 3 X 2 */
+.spot-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.spot-tile{
+  border-radius:5px;
+  overflow:hidden;
+  background:#eee;
+}
+
+.spot-tile img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+}
+
+/* MORE PRODUCTS */
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+}
+
+.products-grid .product{
+  width:100%;
+}
+
+/* EMPTY */
+.empty{
+  padding:30px 10px;
+  text-align:center;
+  color:#777;
+  font-size:14px;
+}
+
+/* BOTTOM NAV */
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:64px;
+  background:#fff;
+  border-top:1px solid #ddd;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  z-index:1000;
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:4px;
+  color:#555;
+  font-size:11px;
+}
+
+.nav.active{
+  color:#2874f0;
+  font-weight:700;
+}
+
+.nav svg{
+  width:22px;
+  height:22px;
+}
+
+/* ADMIN */
+.admin-page{
+  min-height:100vh;
+  background:#f5f5f5;
+  padding-bottom:30px;
+}
+
+.admin-head{
+  background:#2874f0;
+  color:#fff;
+  padding:18px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.admin-head h2{
+  font-size:21px;
+}
+
+.admin-box{
+  margin:12px;
+  background:#fff;
+  border-radius:8px;
+  padding:14px;
+  box-shadow:0 1px 4px #0002;
+}
+
+.admin-tabs{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  margin-bottom:12px;
+}
+
+.admin-tab{
+  background:#eee;
+  padding:9px 13px;
+  border-radius:20px;
+  white-space:nowrap;
+}
+
+.admin-tab.active{
+  background:#2874f0;
+  color:#fff;
+}
+
+.form{
+  display:grid;
+  gap:9px;
+}
+
+.form input,.form select{
+  width:100%;
+  height:43px;
+  border:1px solid #ccc;
+  border-radius:5px;
+  padding:0 10px;
+  outline:0;
+}
+
+.primary{
+  background:#2874f0;
+  color:#fff;
+  height:43px;
+  border-radius:5px;
+  font-weight:700;
+}
+
+.danger{
+  background:#e53935;
+  color:#fff;
+  padding:7px 10px;
+  border-radius:4px;
+}
+
+.admin-item{
+  border:1px solid #ddd;
+  border-radius:6px;
+  padding:9px;
+  margin-top:9px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.admin-item img{
+  width:65px;
+  height:65px;
+  object-fit:cover;
+  border-radius:5px;
+}
+
+.admin-item-info{
+  flex:1;
+  min-width:0;
+}
+
+.admin-item-info b{
+  display:block;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.check{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+}
+
+.login{
+  min-height:100vh;
+  background:#f1f3f6;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.login-box{
+  background:#fff;
+  width:100%;
+  max-width:400px;
+  padding:22px;
+  border-radius:10px;
+  box-shadow:0 2px 10px #0002;
+}
+
+.login-box h2{
+  margin-bottom:18px;
+}
+
+.error{
+  color:#d32f2f;
+  font-size:13px;
+  margin-top:8px;
+}
+
+.success{
+  color:#168c31;
+  font-size:13px;
+  margin-top:8px;
+}
+
+@media(min-width:700px){
+  body{
+    max-width:600px;
+    margin:auto;
+  }
+
+  .bottom{
+    max-width:600px;
+    margin:auto;
+  }
+
+  .admin-page{
+    max-width:700px;
+    margin:auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= STORE ================= -->
+
+<div id="storePage">
+
+<header class="header">
+  <div class="top">
+
+    <div class="buyzo-icon">
+      B
+    </div>
+
+    <div class="logo">
+      BUYZO
+    </div>
+
+  </div>
+
+  <div class="search">
+    <svg viewBox="0 0 24 24">
+      <path d="M9.5 3a6.5 6.5 0 0 0 0 13c1.61 0 3.08-.59 4.21-1.56L19.21 20 20.6 18.6l-5.5-5.5A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 0 0 9.5 3Zm0 2a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Z"/>
+    </svg>
+    <input id="searchInput" placeholder="Search for products">
+  </div>
+</header>
+
+<!-- CATEGORIES -->
+<div class="categories">
+
+  <div class="cat" data-cat="all">
+    <div class="cat-icon">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 4 9v11h6v-7h4v7h6V9l-8-6Z"/></svg>
+    </div>
+    For You
+  </div>
+
+  <div class="cat" data-cat="Fashion">
+    <div class="cat-icon">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 4h8l3 4-3 2v10H8V10L5 8l3-4Z"/></svg>
+    </div>
+    Fashion
+  </div>
+
+  <div class="cat" data-cat="Mobiles">
+    <div class="cat-icon">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm1 3v14h8V5H8Zm4 12a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg>
+    </div>
+    Mobiles
+  </div>
+
+  <div class="cat" data-cat="Electronics">
+    <div class="cat-icon">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M4 5h16v11H4V5Zm-2-2h20v15H2V3Zm7 17h6v2H9v-2Z"/></svg>
+    </div>
+    Electronics
+  </div>
+
+  <div class="cat" data-cat="Beauty">
+    <div class="cat-icon">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M10 2h4v5h2v15H8V7h2V2Zm1 2v3h2V4h-2Z"/></svg>
+    </div>
+    Beauty
+  </div>
+
+  <div class="cat" data-cat="Home">
+    <div class="cat-icon">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="m12 3 9 8-1.3 1.5L18 11v9H6v-9l-1.7 1.5L3 11l9-8Zm-4 9v6h8v-6l-4-3.5L8 12Z"/></svg>
+    </div>
+    Home
+  </div>
+
+  <div class="cat" data-cat="Travel">
+    <div class="cat-icon">
+      <svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 2h6l1 5h4a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-3v2H7v-2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h4l1-5Zm2 2-1 3h4l-1-3h-2ZM7 18h10v-7H7v7Z"/></svg>
+    </div>
+    Travel
+  </div>
+
+</div>
+
+<div class="hero-space"></div>
+
+<!-- HERO -->
+<section class="hero-wrap">
+  <div class="hero" id="hero">
+    <div class="hero-track" id="heroTrack"></div>
+  </div>
+  <div class="dots" id="dots"></div>
+</section>
+
+<!-- SPOTLIGHT LARGE -->
+<section class="section">
+  <div class="section-title">Brands in Spotlight</div>
+  <div id="largeSpotlight"></div>
+</section>
+
+<!-- SUGGESTED -->
+<section class="section">
+  <div class="section-title">Suggested for You</div>
+  <div class="horizontal" id="suggested"></div>
+</section>
+
+<!-- VALUE DEALS -->
+<section class="section">
+  <div class="section-title">TOP Value Deals</div>
+  <div class="horizontal" id="deals"></div>
+</section>
+
+<!-- SPOTLIGHT GRID -->
+<section class="section">
+  <div class="section-title">Brands in Spotlight</div>
+  <div class="spot-grid" id="spotGrid"></div>
+</section>
+
+<!-- MORE PRODUCTS -->
+<section class="section">
+  <div class="section-title">More products for you</div>
+  <div class="products-grid" id="moreProducts"></div>
+</section>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom">
+
+  <div class="nav active" onclick="scrollTopPage()">
+    <svg viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 3 3 10v10h6v-6h6v6h6V10l-9-7Z"/>
+    </svg>
+    Home
+  </div>
+
+  <div class="nav" onclick="focusSearch()">
+    <svg viewBox="0 0 24 24">
+      <path fill="currentColor" d="m15.5 14 4.5 4.5-1.5 1.5-4.5-4.5A6.5 6.5 0 1 1 15.5 14ZM10 15a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"/>
+    </svg>
+    Search
+  </div>
+
+  <div class="nav" onclick="document.querySelector('.categories').scrollIntoView({behavior:'smooth'})">
+    <svg viewBox="0 0 24 24">
+      <path fill="currentColor" d="M4 4h6v6H4V4Zm10 0h6v6h-6V4ZM4 14h6v6H4v-6Zm10 0h6v6h-6v-6Z"/>
+    </svg>
+    Categories
+  </div>
+
+  <div class="nav" onclick="location.hash='admin'">
+    <svg viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm-8 9a8 8 0 0 1 16 0H4Z"/>
+    </svg>
+    Account
+  </div>
+
+</nav>
+
+</div>
+
+
+<!-- ================= LOGIN ================= -->
+
+<div id="loginPage" class="login hidden">
+
+  <div class="login-box">
+
+    <h2>BUYZO Admin Login</h2>
+
+    <div class="form">
+
+      <input id="loginEmail"
+             type="email"
+             placeholder="Admin Email">
+
+      <input id="loginPassword"
+             type="password"
+             placeholder="Password">
+
+      <button class="primary" onclick="adminLogin()">
+        Login
+      </button>
+
+    </div>
+
+    <div id="loginError" class="error"></div>
+
+    <button
+      style="margin-top:15px;background:none;color:#2874f0"
+      onclick="location.hash=''">
+      ← Back to BUYZO
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ================= ADMIN ================= -->
+
+<div id="adminPage" class="admin-page hidden">
+
+  <div class="admin-head">
+    <h2>BUYZO Admin</h2>
+
+    <button
+      style="background:#fff;color:#2874f0;padding:8px 12px;border-radius:5px"
+      onclick="adminLogout()">
+      Logout
+    </button>
+  </div>
+
+  <div class="admin-box">
+
+    <div class="admin-tabs">
+
+      <button class="admin-tab active"
+              onclick="showAdminTab('products',this)">
+        Products
+      </button>
+
+      <button class="admin-tab"
+              onclick="showAdminTab('banners',this)">
+        7 Banners
+      </button>
+
+      <button class="admin-tab"
+              onclick="showAdminTab('spotlight',this)">
+        Spotlight
+      </button>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+    <div id="productsTab">
+
+      <h3>Add Product</h3>
+
+      <br>
+
+      <div class="form">
+
+        <input id="pName"
+               placeholder="Product name">
+
+        <input id="pPrice"
+               type="number"
+               placeholder="Price ₹">
+
+        <input id="pOldPrice"
+               type="number"
+               placeholder="Old Price ₹">
+
+        <input id="pDiscount"
+               placeholder="Discount e.g. 40% OFF">
+
+        <input id="pImage"
+               placeholder="Product Image URL">
+
+        <select id="pCategory">
+          <option value="Fashion">Fashion</option>
+          <option value="Mobiles">Mobiles</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Beauty">Beauty</option>
+          <option value="Home">Home</option>
+          <option value="Travel">Travel</option>
+        </select>
+
+        <label class="check">
+          <input id="pDeal" type="checkbox">
+          Show in TOP Value Deals
+        </label>
+
+        <button class="primary" onclick="addProduct()">
+          + Add Product
+        </button>
+
+      </div>
+
+      <div id="productMessage"></div>
+
+      <hr style="margin:18px 0;border:0;border-top:1px solid #ddd">
+
+      <h3>Products</h3>
+
+      <div id="adminProducts"></div>
+
+    </div>
+
+
+    <!-- BANNERS -->
+    <div id="bannersTab" class="hidden">
+
+      <h3>Add Banner</h3>
+
+      <p style="font-size:12px;color:#777;margin:7px 0">
+        Maximum 7 banners. Image URL paste karo.
+      </p>
+
+      <div class="form">
+
+        <input id="bTitle"
+               placeholder="Banner title">
+
+        <input id="bImage"
+               placeholder="Banner Image URL">
+
+        <input id="bLink"
+               placeholder="Banner click URL">
+
+        <input id="bOrder"
+               type="number"
+               min="1"
+               max="7"
+               placeholder="Order 1-7">
+
+        <button class="primary" onclick="addBanner()">
+          + Add Banner
+        </button>
+
+      </div>
+
+      <div id="bannerMessage"></div>
+
+      <hr style="margin:18px 0;border:0;border-top:1px solid #ddd">
+
+      <div id="adminBanners"></div>
+
+    </div>
+
+
+    <!-- SPOTLIGHT -->
+    <div id="spotlightTab" class="hidden">
+
+      <h3>Add Spotlight</h3>
+
+      <br>
+
+      <div class="form">
+
+        <input id="sTitle"
+               placeholder="Title">
+
+        <input id="sImage"
+               placeholder="Spotlight Image URL">
+
+        <input id="sLink"
+               placeholder="Click URL">
+
+        <input id="sOrder"
+               type="number"
+               placeholder="Order">
+
+        <button class="primary" onclick="addSpotlight()">
+          + Add Spotlight
+        </button>
+
+      </div>
+
+      <div id="spotMessage"></div>
+
+      <hr style="margin:18px 0;border:0;border-top:1px solid #ddd">
+
+      <div id="adminSpotlight"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   FIREBASE CONFIG
+===================================================== */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAQGeT-C7aFPM5nRAwNA05TCwARs9L-od0",
+  authDomain: "buyzo-79442.firebaseapp.com",
+  projectId: "buyzo-79442",
+  storageBucket: "buyzo-79442.firebasestorage.app",
+  messagingSenderId: "444674378019",
+  appId: "1:444674378019:web:d87c6afe80b7164af3a496"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let products = [];
+let banners = [];
+let spotlight = [];
+
+let currentCategory = "all";
+let searchText = "";
+
+let currentSlide = 0;
+let slideTimer = null;
+
+
+/* =====================================================
+   PAGE / AUTH
+===================================================== */
+
+function checkPage(){
+
+  if(location.hash === "#admin"){
+
+    document.getElementById("storePage").classList.add("hidden");
+
+    auth.onAuthStateChanged(user => {
+
+      if(user){
+
+        document.getElementById("loginPage").classList.add("hidden");
+        document.getElementById("adminPage").classList.remove("hidden");
+
+        loadAdmin();
+
+      }else{
+
+        document.getElementById("adminPage").classList.add("hidden");
+        document.getElementById("loginPage").classList.remove("hidden");
+
+      }
+
+    });
+
+  }else{
+
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("adminPage").classList.add("hidden");
+    document.getElementById("storePage").classList.remove("hidden");
+
+    loadStore();
+
+  }
+
+}
+
+window.addEventListener("hashchange",checkPage);
+
+
+/* =====================================================
+   STORE LOAD
+===================================================== */
+
+async function loadStore(){
+
+  try{
+
+    const [p,b,s] = await Promise.all([
+
+      db.collection("products")
+        .orderBy("createdAt","desc")
+        .get(),
+
+      db.collection("banners")
+        .orderBy("order","asc")
+        .limit(7)
+        .get(),
+
+      db.collection("spotlight")
+        .orderBy("order","asc")
+        .get()
+
+    ]);
+
+    products = p.docs.map(x => ({
+      id:x.id,
+      ...x.data()
+    }));
+
+    banners = b.docs.map(x => ({
+      id:x.id,
+      ...x.data()
+    }));
+
+    spotlight = s.docs.map(x => ({
+      id:x.id,
+      ...x.data()
+    }));
+
+    /*
+      Banner images preload:
+      image ready hone ke baad hi hero mein lagayenge.
+      Isliye visible skeleton/loading banner nahi.
+    */
+
+    await preloadImages(banners.map(x => x.image));
+
+    renderAll();
+
+  }catch(error){
+
+    console.error(error);
+
+    document.getElementById("heroTrack").innerHTML =
+      "";
+
+    document.getElementById("dots").innerHTML =
+      "";
+
+  }
+
+}
+
+
+/* =====================================================
+   IMAGE PRELOAD
+===================================================== */
+
+function preloadImages(urls){
+
+  const goodUrls = urls.filter(Boolean);
+
+  return Promise.all(
+
+    goodUrls.map(url => new Promise(resolve => {
+
+      const img = new Image();
+
+      img.onload = resolve;
+      img.onerror = resolve;
+
+      img.src = url;
+
+    }))
+
+  );
+
+}
+
+
+/* =====================================================
+   RENDER ALL
+===================================================== */
+
+function renderAll(){
+
+  renderBanners();
+  renderSpotlight();
+  renderProducts();
+
+}
+
+
+/* =====================================================
+   BANNERS
+===================================================== */
+
+function renderBanners(){
+
+  const track = document.getElementById("heroTrack");
+  const dots = document.getElementById("dots");
+
+  if(!banners.length){
+
+    track.innerHTML = "";
+    dots.innerHTML = "";
+
+    return;
+  }
+
+  track.innerHTML = banners.map((b,index)=>`
+
+    <div class="banner">
+
+      <img src="${escapeAttr(b.image)}"
+           alt="${escapeAttr(b.title || "BUYZO Banner")}"
+           decoding="async">
+
+      ${b.link ? `
+        <a class="banner-link"
+           href="${escapeAttr(b.link)}"
+           target="_blank"
+           rel="noopener">
+        </a>
+      ` : ""}
+
+    </div>
+
+  `).join("");
+
+  dots.innerHTML = banners.map((b,index)=>`
+
+    <span
+      class="dot ${index===0 ? "active":""}"
+      onclick="goSlide(${index})">
+    </span>
+
+  `).join("");
+
+  currentSlide = 0;
+
+  updateSlide();
+
+  clearInterval(slideTimer);
+
+  if(banners.length > 1){
+
+    slideTimer = setInterval(()=>{
+
+      currentSlide++;
+
+      if(currentSlide >= banners.length){
+        currentSlide = 0;
+      }
+
+      updateSlide();
+
+    },3500);
+
+  }
+
+}
+
+
+/* =====================================================
+   SLIDER
+===================================================== */
+
+function updateSlide(){
+
+  const track = document.getElementById("heroTrack");
+
+  track.style.transform =
+    `translateX(-${currentSlide * 100}%)`;
+
+  document.querySelectorAll(".dot")
+    .forEach((dot,i)=>{
+      dot.classList.toggle(
+        "active",
+        i===currentSlide
+      );
+    });
+
+}
+
+
+function goSlide(index){
+
+  currentSlide = index;
+  updateSlide();
+
+  clearInterval(slideTimer);
+
+  if(banners.length > 1){
+
+    slideTimer = setInterval(()=>{
+
+      currentSlide++;
+
+      if(currentSlide >= banners.length){
+        currentSlide = 0;
+      }
+
+      updateSlide();
+
+    },3500);
+
+  }
+
+}
+
+
+/* =====================================================
+   SWIPE
+===================================================== */
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+const hero = document.getElementById("hero");
+
+hero.addEventListener("touchstart",e=>{
+
+  touchStartX = e.changedTouches[0].screenX;
+
+},{passive:true});
+
+
+hero.addEventListener("touchend",e=>{
+
+  touchEndX = e.changedTouches[0].screenX;
+
+  const diff = touchStartX - touchEndX;
+
+  if(Math.abs(diff) < 40) return;
+
+  if(diff > 0){
+
+    currentSlide++;
+
+    if(currentSlide >= banners.length)
+      currentSlide=0;
+
+  }else{
+
+    currentSlide--;
+
+    if(currentSlide < 0)
+      currentSlide=banners.length-1;
+
+  }
+
+  updateSlide();
+
+});
+
+
+/* =====================================================
+   SPOTLIGHT
+===================================================== */
+
+function renderSpotlight(){
+
+  const large =
+    document.getElementById("largeSpotlight");
+
+  const grid =
+    document.getElementById("spotGrid");
+
+  if(!spotlight.length){
+
+    large.innerHTML = "";
+    grid.innerHTML = "";
+
+    return;
+  }
+
+  /*
+    First spotlight = large banner
+  */
+
+  const first = spotlight[0];
+
+  large.innerHTML = `
+
+    <div class="spotlight-large"
+         ${first.link ? `onclick="openLink('${escapeJS(first.link)}')"` : ""}>
+
+      <img src="${escapeAttr(first.image)}"
+           alt="${escapeAttr(first.title || "Brands in Spotlight")}"
+           decoding="async">
+
+    </div>
+
+  `;
+
+
+  /*
+    Remaining spotlight = grid
+    Up to 6
+  */
+
+  const six = spotlight.slice(1,7);
+
+  grid.innerHTML = six.map(s=>`
+
+    <div class="spot-tile"
+         ${s.link ? `onclick="openLink('${escapeJS(s.link)}')"` : ""}>
+
+      <img src="${escapeAttr(s.image)}"
+           alt="${escapeAttr(s.title || "")}"
+           decoding="async">
+
+    </div>
+
+  `).join("");
+
+}
+
+
+function openLink(url){
+
+  if(url){
+
+    window.open(url,"_blank","noopener");
+
+  }
+
+}
+
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
+function filteredProducts(){
+
+  return products.filter(p=>{
+
+    const categoryOK =
+      currentCategory==="all" ||
+      String(p.category || "").toLowerCase() ===
+      currentCategory.toLowerCase();
+
+    const text =
+      String(p.name || "").toLowerCase();
+
+    const searchOK =
+      !searchText ||
+      text.includes(searchText.toLowerCase());
+
+    return categoryOK && searchOK;
+
+  });
+
+}
+
+
+function productHTML(p){
+
+  return `
+
+    <div class="product">
+
+      <img
+        class="product-img"
+        src="${escapeAttr(p.image)}"
+        alt="${escapeAttr(p.name || "Product")}"
+        loading="eager"
+        decoding="async"
+        onerror="this.style.visibility='hidden'">
+
+      <div class="product-info">
+
+        <div class="product-name">
+          ${escapeHTML(p.name || "")}
+        </div>
+
+        <div class="price">
+          ₹${Number(p.price || 0).toLocaleString("en-IN")}
+
+          ${
+            p.oldPrice
+            ? `<span class="old-price">
+                ₹${Number(p.oldPrice).toLocaleString("en-IN")}
+               </span>`
+            : ""
+          }
+
+          ${
+            p.discount
+            ? `<span class="discount">
+                ${escapeHTML(p.discount)}
+               </span>`
+            : ""
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function renderProducts(){
+
+  const list = filteredProducts();
+
+  const suggested =
+    document.getElementById("suggested");
+
+  const deals =
+    document.getElementById("deals");
+
+  const more =
+    document.getElementById("moreProducts");
+
+
+  /*
+    User ne jo products add kiye hain,
+    wahi show honge.
+  */
+
+  if(!list.length){
+
+    suggested.innerHTML =
+      `<div class="empty">No products found</div>`;
+
+    deals.innerHTML =
+      `<div class="empty">No deals added</div>`;
+
+    more.innerHTML =
+      `<div class="empty" style="grid-column:1/-1">
+        No products found
+      </div>`;
+
+    return;
+
+  }
+
+
+  /*
+    Suggested
+  */
+
+  suggested.innerHTML =
+    list.slice(0,12)
+        .map(productHTML)
+        .join("");
+
+
+  /*
+    TOP Value Deals
+  */
+
+  const dealProducts =
+    list.filter(p=>p.deal === true);
+
+  deals.innerHTML =
+    dealProducts.length
+    ? dealProducts.slice(0,20)
+        .map(productHTML)
+        .join("")
+    : `<div class="empty">No deals added</div>`;
+
+
+  /*
+    More products
+    max 100
+  */
+
+  more.innerHTML =
+    list.slice(0,100)
+        .map(productHTML)
+        .join("");
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+document.getElementById("searchInput")
+.addEventListener("input",e=>{
+
+  searchText = e.target.value.trim();
+
+  renderProducts();
+
+});
+
+
+function focusSearch(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  setTimeout(()=>{
+
+    document.getElementById("searchInput").focus();
+
+  },400);
+
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+document.querySelectorAll(".cat")
+.forEach(cat=>{
+
+  cat.addEventListener("click",()=>{
+
+    currentCategory =
+      cat.dataset.cat || "all";
+
+    renderProducts();
+
+    window.scrollTo({
+      top:document.querySelector(".hero-space").offsetTop,
+      behavior:"smooth"
+    });
+
+  });
+
+});
+
+
+/* =====================================================
+   ADMIN LOGIN
+===================================================== */
+
+async function adminLogin(){
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  const error =
+    document.getElementById("loginError");
+
+  error.textContent = "";
+
+  if(!email || !password){
+
+    error.textContent =
+      "Email aur password enter karo.";
+
+    return;
+
+  }
+
+  try{
+
+    await auth.signInWithEmailAndPassword(
+      email,
+      password
+    );
+
+  }catch(e){
+
+    error.textContent =
+      "Login failed: " + e.message;
+
+  }
+
+}
+
+
+function adminLogout(){
+
+  auth.signOut().then(()=>{
+
+    location.hash="";
+
+  });
+
+}
+
+
+/* =====================================================
+   ADMIN LOAD
+===================================================== */
+
+async function loadAdmin(){
+
+  await loadAdminProducts();
+  await loadAdminBanners();
+  await loadAdminSpotlight();
+
+}
+
+
+/* =====================================================
+   ADMIN TABS
+===================================================== */
+
+function showAdminTab(tab,button){
+
+  document
+    .getElementById("productsTab")
+    .classList.add("hidden");
+
+  document
+    .getElementById("bannersTab")
+    .classList.add("hidden");
+
+  document
+    .getElementById("spotlightTab")
+    .classList.add("hidden");
+
+
+  document
+    .getElementById(tab+"Tab")
+    .classList.remove("hidden");
+
+
+  document
+    .querySelectorAll(".admin-tab")
+    .forEach(x=>x.classList.remove("active"));
+
+  button.classList.add("active");
+
+}
+
+
+/* =====================================================
+   ADD PRODUCT
+===================================================== */
+
+async function addProduct(){
+
+  const name =
+    document.getElementById("pName").value.trim();
+
+  const price =
+    Number(document.getElementById("pPrice").value);
+
+  const oldPrice =
+    Number(document.getElementById("pOldPrice").value) || 0;
+
+  const discount =
+    document.getElementById("pDiscount").value.trim();
+
+  const image =
+    document.getElementById("pImage").value.trim();
+
+  const category =
+    document.getElementById("pCategory").value;
+
+  const deal =
+    document.getElementById("pDeal").checked;
+
+  const msg =
+    document.getElementById("productMessage");
+
+
+  if(!name || !price || !image){
+
+    msg.className="error";
+
+    msg.textContent =
+      "Product name, price aur image URL required hai.";
+
+    return;
+
+  }
+
+
+  try{
+
+    await db.collection("products").add({
+
+      name:name,
+      price:price,
+      oldPrice:oldPrice,
+      discount:discount,
+      image:image,
+      category:category,
+      deal:deal,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+
+    msg.className="success";
+
+    msg.textContent =
+      "Product successfully add ho gaya.";
+
+    document.getElementById("pName").value="";
+    document.getElementById("pPrice").value="";
+    document.getElementById("pOldPrice").value="";
+    document.getElementById("pDiscount").value="";
+    document.getElementById("pImage").value="";
+    document.getElementById("pDeal").checked=false;
+
+    loadAdminProducts();
+
+    loadStore();
+
+  }catch(e){
+
+    msg.className="error";
+
+    msg.textContent=e.message;
+
+  }
+
+}
+
+
+/* =====================================================
+   ADMIN PRODUCTS
+===================================================== */
+
+async function loadAdminProducts(){
+
+  const box =
+    document.getElementById("adminProducts");
+
+  box.innerHTML =
+    "<p>Loading...</p>";
+
+  try{
+
+    const snap =
+      await db.collection("products")
+        .orderBy("createdAt","desc")
+        .get();
+
+    if(snap.empty){
+
+      box.innerHTML =
+        `<div class="empty">Abhi koi product add nahi hai.</div>`;
+
+      return;
+
+    }
+
+    box.innerHTML =
+      snap.docs.map(doc=>{
+
+        const p=doc.data();
+
+        return `
+
+          <div class="admin-item">
+
+            <img src="${escapeAttr(p.image || "")}">
+
+            <div class="admin-item-info">
+
+              <b>${escapeHTML(p.name || "")}</b>
+
+              <small>
+                ₹${Number(p.price || 0).toLocaleString("en-IN")}
+                • ${escapeHTML(p.category || "")}
+              </small>
+
+            </div>
+
+            <button
+              class="danger"
+              onclick="deleteProduct('${doc.id}')">
+              Delete
+            </button>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+  }catch(e){
+
+    box.innerHTML =
+      `<div class="error">${escapeHTML(e.message)}</div>`;
+
+  }
+
+}
+
+
+async function deleteProduct(id){
+
+  if(!confirm("Product delete karna hai?")) return;
+
+  await db.collection("products")
+    .doc(id)
+    .delete();
+
+  loadAdminProducts();
+  loadStore();
+
+}
+
+
+/* =====================================================
+   ADD BANNER
+===================================================== */
+
+async function addBanner(){
+
+  const title =
+    document.getElementById("bTitle").value.trim();
+
+  const image =
+    document.getElementById("bImage").value.trim();
+
+  const link =
+    document.getElementById("bLink").value.trim();
+
+  const order =
+    Number(document.getElementById("bOrder").value);
+
+  const msg =
+    document.getElementById("bannerMessage");
+
+
+  if(!image || !order){
+
+    msg.className="error";
+
+    msg.textContent =
+      "Image URL aur order required hai.";
+
+    return;
+
+  }
+
+
+  try{
+
+    const existing =
+      await db.collection("banners")
+        .get();
+
+    if(existing.size >= 7){
+
+      msg.className="error";
+
+      msg.textContent =
+        "Maximum 7 banners allowed hain.";
+
+      return;
+
+    }
+
+
+    const sameOrder =
+      existing.docs.some(d =>
+        Number(d.data().order) === order
+      );
+
+    if(sameOrder){
+
+      msg.className="error";
+
+      msg.textContent =
+        "Ye order already use ho raha hai.";
+
+      return;
+
+    }
+
+
+    await db.collection("banners").add({
+
+      title:title,
+      image:image,
+      link:link,
+      order:order,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+
+    msg.className="success";
+
+    msg.textContent =
+      "Banner add ho gaya.";
+
+    document.getElementById("bTitle").value="";
+    document.getElementById("bImage").value="";
+    document.getElementById("bLink").value="";
+    document.getElementById("bOrder").value="";
+
+    loadAdminBanners();
+    loadStore();
+
+  }catch(e){
+
+    msg.className="error";
+
+    msg.textContent=e.message;
+
+  }
+
+}
+
+
+/* =====================================================
+   ADMIN BANNERS
+===================================================== */
+
+async function loadAdminBanners(){
+
+  const box =
+    document.getElementById("adminBanners");
+
+  box.innerHTML =
+    "<p>Loading...</p>";
+
+  const snap =
+    await db.collection("banners")
+      .orderBy("order","asc")
+      .get();
+
+  if(snap.empty){
+
+    box.innerHTML =
+      `<div class="empty">Abhi banner add nahi hai.</div>`;
+
+    return;
+
+  }
+
+  box.innerHTML =
+    snap.docs.map(doc=>{
+
+      const b=doc.data();
+
+      return `
+
+        <div class="admin-item">
+
+          <img src="${escapeAttr(b.image || "")}">
+
+          <div class="admin-item-info">
+
+            <b>
+              ${escapeHTML(b.title || "Banner")}
+            </b>
+
+            <small>
+              Banner ${Number(b.order || 0)}
+            </small>
+
+          </div>
+
+          <button
+            class="danger"
+            onclick="deleteBanner('${doc.id}')">
+            Delete
+          </button>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function deleteBanner(id){
+
+  if(!confirm("Banner delete karna hai?")) return;
+
+  await db.collection("banners")
+    .doc(id)
+    .delete();
+
+  loadAdminBanners();
+  loadStore();
+
+}
+
+
+/* =====================================================
+   ADD SPOTLIGHT
+===================================================== */
+
+async function addSpotlight(){
+
+  const title =
+    document.getElementById("sTitle").value.trim();
+
+  const image =
+    document.getElementById("sImage").value.trim();
+
+  const link =
+    document.getElementById("sLink").value.trim();
+
+  const order =
+    Number(document.getElementById("sOrder").value) || 1;
+
+  const msg =
+    document.getElementById("spotMessage");
+
+
+  if(!image){
+
+    msg.className="error";
+
+    msg.textContent =
+      "Image URL required hai.";
+
+    return;
+
+  }
+
+
+  try{
+
+    await db.collection("spotlight").add({
+
+      title:title,
+      image:image,
+      link:link,
+      order:order,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+
+    msg.className="success";
+
+    msg.textContent =
+      "Spotlight add ho gaya.";
+
+    document.getElementById("sTitle").value="";
+    document.getElementById("sImage").value="";
+    document.getElementById("sLink").value="";
+    document.getElementById("sOrder").value="";
+
+    loadAdminSpotlight();
+    loadStore();
+
+  }catch(e){
+
+    msg.className="error";
+
+    msg.textContent=e.message;
+
+  }
+
+}
+
+
+/* =====================================================
+   ADMIN SPOTLIGHT
+===================================================== */
+
+async function loadAdminSpotlight(){
+
+  const box =
+    document.getElementById("adminSpotlight");
+
+  box.innerHTML =
+    "<p>Loading...</p>";
+
+  const snap =
+    await db.collection("spotlight")
+      .orderBy("order","asc")
+      .get();
+
+  if(snap.empty){
+
+    box.innerHTML =
+      `<div class="empty">
+        Abhi spotlight add nahi hai.
+      </div>`;
+
+    return;
+
+  }
+
+  box.innerHTML =
+    snap.docs.map(doc=>{
+
+      const s=doc.data();
+
+      return `
+
+        <div class="admin-item">
+
+          <img src="${escapeAttr(s.image || "")}">
+
+          <div class="admin-item-info">
+
+            <b>
+              ${escapeHTML(s.title || "Spotlight")}
+            </b>
+
+            <small>
+              Order ${Number(s.order || 0)}
+            </small>
+
+          </div>
+
+          <button
+            class="danger"
+            onclick="deleteSpotlight('${doc.id}')">
+            Delete
+          </button>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+async function deleteSpotlight(id){
+
+  if(!confirm("Spotlight delete karna hai?")) return;
+
+  await db.collection("spotlight")
+    .doc(id)
+    .delete();
+
+  loadAdminSpotlight();
+  loadStore();
+
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function escapeAttr(value){
+
+  return escapeHTML(value);
+
+}
+
+
+function escapeJS(value){
+
+  return String(value ?? "")
+    .replaceAll("\\","\\\\")
+    .replaceAll("'","\\'")
+    .replaceAll("\n","");
+
+}
+
+
+function scrollTopPage(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+checkPage();
+
+</script>
+
+</body>
+</html>
