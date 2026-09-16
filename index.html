@@ -873,16 +873,21 @@ id="productsGrid">
 <!-- =================================================
      BOTTOM NAV
 ================================================= -->
+<!-- =================================================
+     BOTTOM NAV
+================================================= -->
 
 <nav class="bottomNav">
 
 <div class="bottomInner">
 
+<!-- HOME -->
 
 <button
 class="navButton active"
-onclick="goHome()"
-type="button">
+type="button"
+onclick="window.location.href='index.html'"
+>
 
 <svg viewBox="0 0 24 24">
 
@@ -894,16 +899,18 @@ type="button">
 
 </svg>
 
-Home
+<span>Home</span>
 
 </button>
 
 
+<!-- CATEGORIES -->
 
 <button
 class="navButton"
-onclick="showProducts()"
-type="button">
+type="button"
+onclick="window.location.href='categories.html'"
+>
 
 <svg viewBox="0 0 24 24">
 
@@ -917,15 +924,18 @@ type="button">
 
 </svg>
 
-Categories
+<span>Categories</span>
 
 </button>
 
 
+<!-- ACCOUNT -->
 
 <button
 class="navButton"
-type="button">
+type="button"
+onclick="window.location.href='account.html'"
+>
 
 <svg viewBox="0 0 24 24">
 
@@ -935,15 +945,18 @@ type="button">
 
 </svg>
 
-Account
+<span>Account</span>
 
 </button>
 
 
+<!-- CART -->
 
 <button
 class="navButton"
-type="button">
+type="button"
+onclick="window.location.href='cart.html'"
+>
 
 <svg viewBox="0 0 24 24">
 
@@ -955,14 +968,14 @@ type="button">
 
 </svg>
 
-Cart
+<span>Cart</span>
 
 </button>
 
 
 </div>
 
-</nav>
+  </nav>
 
 </div>
 
@@ -1929,33 +1942,36 @@ renderProducts(result);
    BOTTOM NAV
 ===================================================== */
 
+/* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
 function goHome(){
 
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
+window.location.href = "index.html";
 
 }
 
 
 function showProducts(){
 
-document
-.getElementById("moreProductsSection")
-.scrollIntoView({
-
-behavior:"smooth",
-
-block:"start"
-
-});
+window.location.href = "categories.html";
 
 }
 
+
+function openAccount(){
+
+window.location.href = "account.html";
+
+}
+
+
+function openCart(){
+
+window.location.href = "cart.html";
+
+  }
 
 
 /* =====================================================
