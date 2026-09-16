@@ -1,0 +1,2034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BUYZO Product</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f1f3f6;
+  color:#222;
+  padding-bottom:62px;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.app{
+  width:100%;
+  max-width:700px;
+  margin:auto;
+  background:#fff;
+  min-height:100vh;
+}
+
+
+/* ================= HEADER ================= */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  height:54px;
+  background:#dff3ff;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 8px;
+}
+
+.backBtn{
+  width:30px;
+  height:36px;
+  border:0;
+  background:transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.backBtn svg{
+  width:24px;
+  height:24px;
+  stroke:#333;
+  fill:none;
+  stroke-width:2;
+}
+
+.searchBox{
+  flex:1;
+  height:36px;
+  background:#fff;
+  border:2px solid #43a3e5;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  padding:0 9px;
+  gap:7px;
+}
+
+.searchBox svg{
+  width:20px;
+  height:20px;
+  stroke:#222;
+  fill:none;
+  stroke-width:1.8;
+}
+
+.searchBox input{
+  width:100%;
+  border:0;
+  outline:0;
+  font-size:12px;
+}
+
+.cartTop{
+  width:32px;
+  height:36px;
+  border:0;
+  background:transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.cartTop svg{
+  width:25px;
+  height:25px;
+  stroke:#333;
+  fill:none;
+  stroke-width:1.7;
+}
+
+
+/* ================= PRODUCT IMAGE ================= */
+
+.productHero{
+  position:relative;
+  background:#f4f4f4;
+  overflow:hidden;
+}
+
+.mainImageBox{
+  height:300px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#f4f4f4;
+  overflow:hidden;
+  touch-action:pan-y;
+}
+
+.imageTrack{
+  width:100%;
+  height:100%;
+  display:flex;
+  transition:transform .25s ease;
+}
+
+.imageSlide{
+  min-width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.imageSlide img{
+  width:82%;
+  height:82%;
+  object-fit:contain;
+}
+
+.sideButtons{
+  position:absolute;
+  right:9px;
+  top:20px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  z-index:5;
+}
+
+.sideBtn{
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:10px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.sideBtn svg{
+  width:23px;
+  height:23px;
+  stroke:#222;
+  fill:none;
+  stroke-width:1.5;
+}
+
+.ratingBox{
+  position:absolute;
+  left:15px;
+  bottom:13px;
+  background:#fff;
+  border-radius:8px;
+  padding:6px 9px;
+  font-size:12px;
+  box-shadow:0 1px 3px #ddd;
+  z-index:5;
+}
+
+.star{
+  color:#078b55;
+  font-size:15px;
+}
+
+
+/* ================= DOTS ================= */
+
+.imageDots{
+  height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+
+.imageDot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#ddd;
+}
+
+.imageDot.active{
+  background:#1769dc;
+}
+
+
+/* ================= THUMBNAILS ================= */
+
+.thumbnails{
+  display:flex;
+  gap:7px;
+  padding:0 10px 9px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.thumbnails::-webkit-scrollbar{
+  display:none;
+}
+
+.thumb{
+  flex:0 0 65px;
+  height:65px;
+  border:2px solid #ddd;
+  border-radius:10px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.thumb.active{
+  border-color:#222;
+}
+
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+
+/* ================= CONTENT ================= */
+
+.content{
+  padding:0 14px;
+}
+
+.variant{
+  font-size:15px;
+  margin:9px 0;
+}
+
+.variantGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.variantBox{
+  border:2px solid #ddd;
+  border-radius:11px;
+  padding:9px 11px;
+  min-height:72px;
+  cursor:pointer;
+}
+
+.variantBox.selected{
+  border-color:#333;
+}
+
+.variantName{
+  font-size:13px;
+  font-weight:bold;
+}
+
+.variantLine{
+  height:1px;
+  background:#eee;
+  margin:6px 0;
+}
+
+.variantPrice{
+  font-size:14px;
+  font-weight:bold;
+}
+
+.outStock{
+  color:#bd6d4e;
+  font-size:13px;
+}
+
+
+/* ================= COLOR ================= */
+
+.colorSection{
+  margin-top:10px;
+}
+
+.colorTitle{
+  font-size:15px;
+  margin-bottom:8px;
+}
+
+.colorGrid{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.colorGrid::-webkit-scrollbar{
+  display:none;
+}
+
+.colorBox{
+  flex:0 0 65px;
+  text-align:center;
+  cursor:pointer;
+}
+
+.colorImage{
+  width:60px;
+  height:60px;
+  border:2px solid #ddd;
+  border-radius:10px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.colorBox.selected .colorImage{
+  border-color:#222;
+}
+
+.colorImage img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.colorName{
+  font-size:10px;
+  margin-top:4px;
+}
+
+
+/* ================= PRODUCT INFO ================= */
+
+.productTitle{
+  font-size:16px;
+  font-weight:700;
+  margin-top:15px;
+  line-height:1.25;
+}
+
+.price{
+  font-size:23px;
+  font-weight:800;
+  margin-top:8px;
+}
+
+.promise{
+  margin-top:4px;
+  color:#777;
+  font-size:11px;
+}
+
+
+/* ================= WOW DEAL ================= */
+
+.wowDeal{
+  margin-top:13px;
+  border-radius:12px;
+  overflow:hidden;
+  background:#1455cc;
+  color:#fff;
+}
+
+.wowTop{
+  padding:9px 12px;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.wowBottom{
+  background:#dff3ff;
+  color:#555;
+  padding:9px 12px;
+  font-size:12px;
+}
+
+
+/* ================= BENEFITS ================= */
+
+.benefits{
+  margin-top:8px;
+  background:#f5f5f5;
+  border-radius:12px;
+  padding:10px;
+}
+
+.benefitTitle{
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+.coupon{
+  background:#fff;
+  border-radius:9px;
+  padding:9px;
+  font-size:12px;
+}
+
+
+/* ================= SECTION ================= */
+
+.sectionTitle{
+  font-size:18px;
+  font-weight:bold;
+  margin-top:18px;
+  margin-bottom:9px;
+}
+
+
+/* ================= DELIVERY ================= */
+
+.deliveryBox{
+  background:#eaf6ff;
+  border-radius:10px;
+  padding:10px;
+  font-size:12px;
+  margin-bottom:5px;
+}
+
+.deliveryInfo{
+  background:#f5f5f5;
+  border-radius:10px;
+  padding:10px;
+  font-size:12px;
+  margin-bottom:5px;
+}
+
+
+/* ================= PEACE ================= */
+
+.peace{
+  border-top:1px solid #ddd;
+  margin-top:15px;
+  padding-top:2px;
+}
+
+.warranty{
+  background:#f5f5f5;
+  border-radius:10px;
+  padding:10px;
+  font-size:12px;
+}
+
+.serviceRow{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:4px;
+  text-align:center;
+  margin:12px 0;
+}
+
+.serviceIcon{
+  width:32px;
+  height:32px;
+  margin:auto;
+  background:#edf7ff;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.serviceIcon svg{
+  width:19px;
+  height:19px;
+  stroke:#1769d9;
+  fill:none;
+  stroke-width:1.7;
+}
+
+.serviceText{
+  font-size:10px;
+  line-height:13px;
+  margin-top:5px;
+}
+
+
+/* ================= HIGHLIGHTS ================= */
+
+.highlights{
+  border-top:1px solid #ddd;
+  padding-top:2px;
+}
+
+.highlight{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 0;
+  font-size:13px;
+  line-height:18px;
+}
+
+.highlightIcon{
+  width:36px;
+  height:36px;
+  flex-shrink:0;
+  background:#edf7ff;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.highlightIcon svg{
+  width:20px;
+  height:20px;
+  stroke:#333;
+  fill:none;
+  stroke-width:1.7;
+}
+
+
+/* ================= DETAILS ================= */
+
+.details{
+  border-top:1px solid #ddd;
+  margin-top:8px;
+  padding-top:2px;
+}
+
+.detailTabs{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.detailTabs::-webkit-scrollbar{
+  display:none;
+}
+
+.detailTab{
+  flex:0 0 auto;
+  padding:8px 12px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  background:#fff;
+  font-size:12px;
+}
+
+.detailTab.active{
+  background:#222;
+  color:#fff;
+}
+
+.showcase{
+  height:170px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.showcase img{
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
+}
+
+.showMore{
+  width:100%;
+  padding:10px;
+  border:2px solid #ddd;
+  border-radius:10px;
+  background:#fff;
+  font-size:13px;
+  font-weight:bold;
+}
+
+
+/* ================= SIMILAR ================= */
+
+.similar{
+  margin-top:15px;
+  border-top:1px solid #ddd;
+  padding-top:2px;
+}
+
+.similarRow{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.similarRow::-webkit-scrollbar{
+  display:none;
+}
+
+.similarCard{
+  flex:0 0 130px;
+}
+
+.similarImage{
+  height:135px;
+  background:#f1f1f1;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.similarImage img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.similarName{
+  font-size:11px;
+  font-weight:bold;
+  margin-top:5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.similarPrice{
+  font-size:14px;
+  font-weight:bold;
+  margin-top:3px;
+}
+
+
+/* ================= REVIEWS ================= */
+
+.reviews{
+  margin-top:15px;
+  border-top:1px solid #ddd;
+  padding-top:2px;
+}
+
+.reviewScore{
+  font-size:19px;
+  margin-bottom:5px;
+}
+
+.excellent{
+  display:inline-block;
+  background:#e5f8ef;
+  color:#278c69;
+  padding:4px 6px;
+  border-radius:5px;
+  margin-left:5px;
+  font-size:11px;
+}
+
+.reviewSub{
+  color:#777;
+  font-size:10px;
+}
+
+.reviewPhotos{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:4px;
+  margin-top:10px;
+}
+
+.reviewPhotos img{
+  width:100%;
+  height:65px;
+  object-fit:cover;
+  border-radius:7px;
+}
+
+.reviewPhotos img:first-child{
+  height:134px;
+  grid-row:span 2;
+}
+
+.reviewTags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px;
+  margin-top:10px;
+}
+
+.reviewTag{
+  background:#edf7ff;
+  padding:5px 7px;
+  border-radius:7px;
+  font-size:10px;
+}
+
+.reviewCard{
+  margin-top:12px;
+  padding:10px;
+  background:#f6f6f6;
+  border-radius:10px;
+  font-size:11px;
+  line-height:1.5;
+}
+
+.reviewName{
+  margin-top:7px;
+  font-weight:bold;
+}
+
+
+/* ================= BOTTOM BUY ================= */
+
+.buyBar{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:57px;
+  background:#fff;
+  border-top:1px solid #ddd;
+  z-index:200;
+  padding:6px 8px;
+}
+
+.buyInner{
+  max-width:700px;
+  margin:auto;
+  height:100%;
+  display:grid;
+  grid-template-columns:58px 1fr;
+  gap:6px;
+}
+
+.bottomCart{
+  border:1px solid #ccc;
+  border-radius:11px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.bottomCart svg{
+  width:23px;
+  height:23px;
+  stroke:#222;
+  fill:none;
+  stroke-width:1.7;
+}
+
+.buyNow{
+  border:0;
+  border-radius:12px;
+  background:#ffd600;
+  color:#222;
+  font-size:15px;
+  font-weight:bold;
+}
+
+
+/* ================= SMALL MOBILE ================= */
+
+@media(max-width:380px){
+
+  .mainImageBox{
+    height:280px;
+  }
+
+  .content{
+    padding:0 12px;
+  }
+
+  .productTitle{
+    font-size:15px;
+  }
+
+  .price{
+    font-size:21px;
+  }
+
+  .sectionTitle{
+    font-size:17px;
+  }
+
+  .thumb{
+    flex-basis:60px;
+    height:60px;
+  }
+
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+<button class="backBtn" onclick="history.back()" type="button">
+<svg viewBox="0 0 24 24">
+<path d="M19 12H5"/>
+<path d="m12 19-7-7 7-7"/>
+</svg>
+</button>
+
+
+<div class="searchBox">
+
+<svg viewBox="0 0 24 24">
+<circle cx="11" cy="11" r="7"/>
+<path d="m20 20-4-4"/>
+</svg>
+
+<input
+type="search"
+placeholder="Search for products"
+>
+
+</div>
+
+
+<button class="cartTop" type="button">
+
+<svg viewBox="0 0 24 24">
+<path d="M3 4h2l2 11h10l3-8H6"/>
+<circle cx="9" cy="20" r="1.5"/>
+<circle cx="18" cy="20" r="1.5"/>
+</svg>
+
+</button>
+
+</header>
+
+
+<!-- ================= PRODUCT IMAGE ================= -->
+
+<section class="productHero">
+
+<div class="mainImageBox" id="mainImageBox">
+
+<div class="imageTrack" id="imageTrack"></div>
+
+</div>
+
+
+<div class="sideButtons">
+
+<!-- WISHLIST -->
+
+<button class="sideBtn" type="button">
+
+<svg viewBox="0 0 24 24">
+
+<path d="M20.8 8.7c0-3-2.4-5.2-5.2-5.2-1.6 0-3 .7-3.8 2-0.9-1.3-2.3-2-3.9-2-2.8 0-5.2 2.2-5.2 5.2 0 5.3 9.1 10.8 9.1 10.8s9-5.5 9-10.8z"/>
+
+</svg>
+
+</button>
+
+
+<!-- SHARE -->
+
+<button class="sideBtn" type="button">
+
+<svg viewBox="0 0 24 24">
+
+<path d="m21 3-8.5 18-3.5-7-7-3.5z"/>
+<path d="m21 3-12 11"/>
+
+</svg>
+
+</button>
+
+</div>
+
+
+<div class="ratingBox">
+
+4.6 <span class="star">★</span>
+&nbsp;|&nbsp; 26.8K+
+
+</div>
+
+</section>
+
+
+<!-- ================= DOTS ================= -->
+
+<div class="imageDots" id="imageDots"></div>
+
+
+<!-- ================= THUMBNAILS ================= -->
+
+<div class="thumbnails" id="thumbnails"></div>
+
+
+<div class="content">
+
+
+<!-- ================= COLOR ================= -->
+
+<div class="colorSection">
+
+<div class="colorTitle">
+<strong>Color:</strong>
+<span id="selectedColorText">White</span>
+</div>
+
+<div class="colorGrid">
+
+<div class="colorBox selected"
+data-color="White"
+onclick="selectColor('White')">
+
+<div class="colorImage">
+<img src="white1.png">
+</div>
+
+<div class="colorName">
+White
+</div>
+
+</div>
+
+
+<div class="colorBox"
+data-color="Black"
+onclick="selectColor('Black')">
+
+<div class="colorImage">
+<img src="black1.png">
+</div>
+
+<div class="colorName">
+Black
+</div>
+
+</div>
+
+
+<div class="colorBox"
+data-color="Blue"
+onclick="selectColor('Blue')">
+
+<div class="colorImage">
+<img src="blue1.png">
+</div>
+
+<div class="colorName">
+Blue
+</div>
+
+</div>
+
+
+<div class="colorBox"
+data-color="Green"
+onclick="selectColor('Green')">
+
+<div class="colorImage">
+<img src="green1.png">
+</div>
+
+<div class="colorName">
+Green
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= VARIANT ================= -->
+
+<div class="variant">
+<strong>Variant:</strong>
+<span id="variantText">256 GB</span>
+</div>
+
+
+<div class="variantGrid">
+
+
+<div
+class="variantBox selected"
+id="variant256"
+onclick="selectVariant(256)"
+>
+
+<div class="variantName">
+256 GB
+</div>
+
+<div class="variantLine"></div>
+
+<div class="variantPrice">
+₹82,900
+</div>
+
+</div>
+
+
+<div
+class="variantBox"
+id="variant512"
+onclick="selectVariant(512)"
+>
+
+<div class="variantName">
+512 GB
+</div>
+
+<div class="variantLine"></div>
+
+<div class="variantPrice">
+₹1,20,000
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= PRODUCT ================= -->
+
+<h1 class="productTitle" id="productTitle">
+Apple iPhone 17 (White, 256 GB)
+</h1>
+
+
+<div class="price" id="productPrice">
+₹82,900
+</div>
+
+
+<div class="promise">
++₹299 Protect Promise Fee &nbsp;›
+</div>
+
+
+<!-- ================= WOW DEAL ================= -->
+
+<div class="wowDeal">
+
+<div class="wowTop" id="wowTop">
+WOW! DEAL &nbsp; Buy at ₹78,900
+</div>
+
+<div class="wowBottom">
+Apply offers for maximum savings!
+</div>
+
+</div>
+
+
+<!-- ================= BENEFITS ================= -->
+
+<div class="benefits">
+
+<div class="benefitTitle">
+Additional benefits on this purchase
+</div>
+
+<div class="coupon">
+Unlock Apple coupon • ₹1000 off &nbsp;›
+</div>
+
+</div>
+
+
+<!-- ================= DELIVERY ================= -->
+
+<div class="sectionTitle">
+Delivery details
+</div>
+
+
+<div class="deliveryBox">
+📍 &nbsp; Location not set
+&nbsp;&nbsp;
+<strong>Select delivery location ›</strong>
+</div>
+
+
+<div class="deliveryInfo">
+🚚 &nbsp; Delivery by <strong id="deliveryDate"></strong>
+</div>
+
+
+<div class="deliveryInfo">
+
+🏪 &nbsp; Seller:
+<strong>NGIVR RETAILS</strong>
+
+<br>
+
+<span style="color:#777">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.7 ★ • 6 years with BUYZO
+</span>
+
+</div>
+
+
+<!-- ================= PEACE ================= -->
+
+<div class="peace">
+
+<div class="sectionTitle">
+Shop with peace of mind
+</div>
+
+
+<div class="warranty">
+Apple One (1) Year Limited Warranty
+</div>
+
+
+<div class="serviceRow">
+
+
+<div>
+
+<div class="serviceIcon">
+
+<svg viewBox="0 0 24 24">
+
+<circle cx="12" cy="12" r="8"/>
+<path d="m9 15 3-3 3-4"/>
+
+</svg>
+
+</div>
+
+<div class="serviceText">
+7-day<br>brand support
+</div>
+
+</div>
+
+
+<div>
+
+<div class="serviceIcon">
+
+<svg viewBox="0 0 24 24">
+
+<rect x="3" y="5" width="18" height="14" rx="2"/>
+<path d="M7 12h10"/>
+
+</svg>
+
+</div>
+
+<div class="serviceText">
+Cash on<br>Delivery
+</div>
+
+</div>
+
+
+<div>
+
+<div class="serviceIcon">
+
+<svg viewBox="0 0 24 24">
+
+<path d="m12 3 8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/>
+<path d="m8 12 2.5 2.5L16 9"/>
+
+</svg>
+
+</div>
+
+<div class="serviceText">
+BUYZO<br>Assured
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= HIGHLIGHTS ================= -->
+
+<div class="highlights">
+
+<div class="sectionTitle">
+Product highlights
+</div>
+
+
+<!-- ROM -->
+
+<div class="highlight">
+
+<div class="highlightIcon">
+
+<svg viewBox="0 0 24 24">
+
+<rect x="5" y="5" width="14" height="14" rx="2"/>
+<path d="M8 2v3M12 2v3M16 2v3M8 19v3M12 19v3M16 19v3"/>
+
+</svg>
+
+</div>
+
+<span id="storageHighlight">
+256 GB ROM
+</span>
+
+</div>
+
+
+<!-- RAM -->
+
+<div class="highlight">
+
+<div class="highlightIcon">
+
+<svg viewBox="0 0 24 24">
+
+<rect x="5" y="5" width="14" height="14" rx="2"/>
+<path d="M8 2v3M12 2v3M16 2v3M8 19v3M12 19v3M16 19v3"/>
+
+</svg>
+
+</div>
+
+<span id="ramHighlight">
+8 GB RAM
+</span>
+
+</div>
+
+
+<div class="highlight">
+
+<div class="highlightIcon">
+
+<svg viewBox="0 0 24 24">
+
+<rect x="5" y="5" width="14" height="14" rx="2"/>
+<path d="M9 9h6v6H9z"/>
+
+</svg>
+
+</div>
+
+A19 Chip, 6 Core Processor | Hexa Core | 4.26 GHz Clock Speed
+
+</div>
+
+
+<div class="highlight">
+
+<div class="highlightIcon">
+
+<svg viewBox="0 0 24 24">
+
+<circle cx="12" cy="12" r="7"/>
+<circle cx="12" cy="12" r="2"/>
+
+</svg>
+
+</div>
+
+18MP Front Camera
+
+</div>
+
+
+<div class="highlight">
+
+<div class="highlightIcon">
+
+<svg viewBox="0 0 24 24">
+
+<rect x="6" y="3" width="12" height="18" rx="2"/>
+
+</svg>
+
+</div>
+
+6.3 inch All Screen OLED Display
+
+</div>
+
+</div>
+
+
+<!-- ================= DETAILS ================= -->
+
+<div class="details">
+
+<div class="sectionTitle">
+All details
+</div>
+
+
+<div class="detailTabs">
+
+<button class="detailTab active">
+Showcase
+</button>
+
+<button class="detailTab">
+Specifications
+</button>
+
+<button class="detailTab">
+Warranty
+</button>
+
+<button class="detailTab">
+More
+</button>
+
+</div>
+
+
+<div class="showcase">
+
+<img id="showcaseImage" src="white1.png">
+
+</div>
+
+
+<button class="showMore">
+Show More &nbsp;›
+</button>
+
+</div>
+
+
+<!-- ================= SIMILAR ================= -->
+
+<div class="similar">
+
+<div class="sectionTitle">
+Similar Products
+</div>
+
+
+<div class="similarRow">
+
+
+<div class="similarCard">
+
+<div class="similarImage">
+<img src="product1.png">
+</div>
+
+<div class="similarName">
+Apple iPhone 17 Pro
+</div>
+
+<div class="similarPrice">
+₹1,34,900
+</div>
+
+</div>
+
+
+<div class="similarCard">
+
+<div class="similarImage">
+<img src="product2.png">
+</div>
+
+<div class="similarName">
+Apple iPhone 15
+</div>
+
+<div class="similarPrice">
+₹59,900
+</div>
+
+</div>
+
+
+<div class="similarCard">
+
+<div class="similarImage">
+<img src="product3.png">
+</div>
+
+<div class="similarName">
+Apple iPhone 16
+</div>
+
+<div class="similarPrice">
+₹69,900
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<!-- ================= REVIEWS ================= -->
+
+<div class="reviews">
+
+<div class="sectionTitle">
+Ratings and reviews
+</div>
+
+
+<div class="reviewScore">
+
+4.6 <span class="star">★</span>
+
+<span class="excellent">
+Excellent
+</span>
+
+</div>
+
+
+<div class="reviewSub">
+based on 26,850 ratings by ✓ Verified Buyers
+</div>
+
+
+<div class="reviewPhotos">
+
+<img src="review1.png">
+<img src="review2.png">
+<img src="review3.png">
+<img src="review4.png">
+<img src="review5.png">
+<img src="review6.png">
+
+</div>
+
+
+<div class="reviewTags">
+
+<div class="reviewTag">
+Camera &nbsp; <strong>4.7 ★</strong>
+</div>
+
+<div class="reviewTag">
+Battery &nbsp; <strong>4.3 ★</strong>
+</div>
+
+<div class="reviewTag">
+Display &nbsp; <strong>4.8 ★</strong>
+</div>
+
+<div class="reviewTag">
+Design &nbsp; <strong>4.7 ★</strong>
+</div>
+
+<div class="reviewTag">
+Performance &nbsp; <strong>4.7 ★</strong>
+</div>
+
+<div class="reviewTag">
+Build Quality &nbsp; <strong>4.7 ★</strong>
+</div>
+
+<div class="reviewTag">
+Value for Money &nbsp; <strong>4.4 ★</strong>
+</div>
+
+</div>
+
+
+<div class="reviewCard">
+
+<strong>5 ★ &nbsp; Perfect product!</strong>
+
+<br><br>
+
+This is my first iPhone, and i am really impressed...
+
+<br><br>
+
+<div class="reviewName">
+
+suman roy
+
+<br>
+
+<span style="color:#777;font-weight:normal">
+✓ Verified Buyer
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= BOTTOM ================= -->
+
+<div class="buyBar">
+
+<div class="buyInner">
+
+<button class="bottomCart" type="button">
+
+<svg viewBox="0 0 24 24">
+
+<path d="M3 4h2l2 11h10l3-8H6"/>
+
+<circle cx="9" cy="20" r="1.5"/>
+<circle cx="18" cy="20" r="1.5"/>
+
+</svg>
+
+</button>
+
+
+<button class="buyNow" id="buyNowBtn" onclick="buyNow()" type="button">
+
+Buy now at ₹82,900
+
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ================= PRODUCT PHOTOS ================= */
+
+const colorPhotos = {
+
+  White:[
+    "white1.png",
+    "white2.png",
+    "white3.png",
+    "white4.png",
+    "white5.png",
+    "white6.png"
+  ],
+
+  Black:[
+    "black1.png",
+    "black2.png",
+    "black3.png",
+    "black4.png",
+    "black5.png",
+    "black6.png"
+  ],
+
+  Blue:[
+    "blue1.png",
+    "blue2.png",
+    "blue3.png",
+    "blue4.png",
+    "blue5.png",
+    "blue6.png"
+  ],
+
+  Green:[
+    "green1.png",
+    "green2.png",
+    "green3.png",
+    "green4.png",
+    "green5.png",
+    "green6.png"
+  ]
+
+};
+
+
+/* ================= VARIANT DATA ================= */
+
+const variantData = {
+
+  256:{
+    price:82900,
+    wow:78900,
+    ram:"8 GB"
+  },
+
+  512:{
+    price:120000,
+    wow:120000,
+    ram:"12 GB"
+  }
+
+};
+
+
+let selectedColor = "White";
+let selectedVariant = 256;
+let currentPhoto = 0;
+
+
+/* ================= LOAD PHOTOS ================= */
+
+function loadPhotos(){
+
+  const photos = colorPhotos[selectedColor];
+
+  const track =
+    document.getElementById("imageTrack");
+
+  const dots =
+    document.getElementById("imageDots");
+
+  const thumbnails =
+    document.getElementById("thumbnails");
+
+  track.innerHTML = "";
+  dots.innerHTML = "";
+  thumbnails.innerHTML = "";
+
+
+  photos.forEach((photo,index)=>{
+
+    const slide =
+      document.createElement("div");
+
+    slide.className = "imageSlide";
+
+    slide.innerHTML =
+      `<img src="${photo}" alt="${selectedColor}">`;
+
+    track.appendChild(slide);
+
+
+    const dot =
+      document.createElement("div");
+
+    dot.className = "imageDot";
+
+    if(index === currentPhoto){
+      dot.classList.add("active");
+    }
+
+    dots.appendChild(dot);
+
+
+    const thumb =
+      document.createElement("div");
+
+    thumb.className = "thumb";
+
+    if(index === currentPhoto){
+      thumb.classList.add("active");
+    }
+
+    thumb.innerHTML =
+      `<img src="${photo}" alt="${selectedColor}">`;
+
+    thumb.onclick = function(){
+
+      currentPhoto = index;
+
+      updatePhoto();
+
+    };
+
+    thumbnails.appendChild(thumb);
+
+  });
+
+
+  updatePhoto();
+
+}
+
+
+/* ================= UPDATE PHOTO ================= */
+
+function updatePhoto(){
+
+  const track =
+    document.getElementById("imageTrack");
+
+  track.style.transform =
+    `translateX(-${currentPhoto * 100}%)`;
+
+
+  document
+  .querySelectorAll(".imageDot")
+  .forEach((dot,index)=>{
+
+    dot.classList.toggle(
+      "active",
+      index === currentPhoto
+    );
+
+  });
+
+
+  document
+  .querySelectorAll(".thumb")
+  .forEach((thumb,index)=>{
+
+    thumb.classList.toggle(
+      "active",
+      index === currentPhoto
+    );
+
+  });
+
+
+  const current =
+    colorPhotos[selectedColor][currentPhoto];
+
+  document
+  .getElementById("showcaseImage")
+  .src = current;
+
+}
+
+
+/* ================= MANUAL SWIPE ================= */
+
+const mainImageBox =
+  document.getElementById("mainImageBox");
+
+let touchStartX = 0;
+
+mainImageBox.addEventListener(
+  "touchstart",
+  function(e){
+
+    touchStartX =
+      e.touches[0].clientX;
+
+  },
+  {passive:true}
+);
+
+
+mainImageBox.addEventListener(
+  "touchend",
+  function(e){
+
+    const touchEndX =
+      e.changedTouches[0].clientX;
+
+    const difference =
+      touchStartX - touchEndX;
+
+
+    if(Math.abs(difference) < 40){
+      return;
+    }
+
+
+    if(difference > 0){
+
+      if(currentPhoto < 5){
+
+        currentPhoto++;
+
+        updatePhoto();
+
+      }
+
+    }
+
+    else{
+
+      if(currentPhoto > 0){
+
+        currentPhoto--;
+
+        updatePhoto();
+
+      }
+
+    }
+
+  },
+  {passive:true}
+);
+
+
+/* ================= COLOR ================= */
+
+function selectColor(color){
+
+  selectedColor = color;
+
+  currentPhoto = 0;
+
+
+  document
+  .querySelectorAll(".colorBox")
+  .forEach(box=>{
+
+    box.classList.toggle(
+      "selected",
+      box.dataset.color === color
+    );
+
+  });
+
+
+  document
+  .getElementById("selectedColorText")
+  .innerText = color;
+
+
+  updateProductTitle();
+
+  loadPhotos();
+
+}
+
+
+/* ================= VARIANT ================= */
+
+function selectVariant(variant){
+
+  selectedVariant = variant;
+
+
+  document
+  .getElementById("variant256")
+  .classList.toggle(
+    "selected",
+    variant === 256
+  );
+
+
+  document
+  .getElementById("variant512")
+  .classList.toggle(
+    "selected",
+    variant === 512
+  );
+
+
+  document
+  .getElementById("variantText")
+  .innerText =
+    variant + " GB";
+
+
+  updateProductTitle();
+
+  updatePrice();
+
+}
+
+
+/* ================= TITLE ================= */
+
+function updateProductTitle(){
+
+  document
+  .getElementById("productTitle")
+  .innerText =
+    `Apple iPhone 17 (${selectedColor}, ${selectedVariant} GB)`;
+
+}
+
+
+/* ================= PRICE + RAM + ROM ================= */
+
+function updatePrice(){
+
+  const item =
+    variantData[selectedVariant];
+
+
+  document
+  .getElementById("productPrice")
+  .innerText =
+    "₹" +
+    item.price.toLocaleString("en-IN");
+
+
+  document
+  .getElementById("wowTop")
+  .innerText =
+    "WOW! DEAL  Buy at ₹" +
+    item.wow.toLocaleString("en-IN");
+
+
+  document
+  .getElementById("buyNowBtn")
+  .innerText =
+    "Buy now at ₹" +
+    item.price.toLocaleString("en-IN");
+
+
+  /* ROM changes with variant */
+
+  document
+  .getElementById("storageHighlight")
+  .innerText =
+    selectedVariant + " GB ROM";
+
+
+  /* RAM changes with variant */
+
+  document
+  .getElementById("ramHighlight")
+  .innerText =
+    item.ram + " RAM";
+
+}
+
+
+/* ================= DELIVERY DATE ================= */
+
+function setDeliveryDate(){
+
+  const date = new Date();
+
+  date.setDate(
+    date.getDate() + 3
+  );
+
+  const options = {
+    weekday:"long",
+    day:"numeric",
+    month:"short"
+  };
+
+  document
+  .getElementById("deliveryDate")
+  .innerText =
+    date.toLocaleDateString(
+      "en-IN",
+      options
+    );
+
+}
+
+
+/* ================= BUY NOW ================= */
+
+function buyNow(){
+
+  const item =
+    variantData[selectedVariant];
+
+  alert(
+    "Buy Now\n\n" +
+    "Apple iPhone 17 (" +
+    selectedColor +
+    ", " +
+    selectedVariant +
+    " GB)\n\n" +
+    "RAM: " +
+    item.ram +
+    "\n" +
+    "Price: ₹" +
+    item.price.toLocaleString("en-IN")
+  );
+
+}
+
+
+/* ================= SEARCH ================= */
+
+document
+.querySelector(".searchBox input")
+.addEventListener("keydown",e=>{
+
+  if(e.key==="Enter"){
+
+    const q =
+      e.target.value.trim();
+
+    if(q){
+
+      window.location.href =
+        "index.html?search=" +
+        encodeURIComponent(q);
+
+    }
+
+  }
+
+});
+
+
+/* ================= INITIAL ================= */
+
+loadPhotos();
+
+updateProductTitle();
+
+updatePrice();
+
+setDeliveryDate();
+
+</script>
+
+</div>
+
+</body>
+  </html>
