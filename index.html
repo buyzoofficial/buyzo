@@ -1622,8 +1622,9 @@ Value 365
 `;
 
 
-card.onclick =
-()=>openProductPage(deal);
+card.onclick = () => {
+  window.location.href = `top${i + 1}.html`;
+};
 
 
 dealsTrack.appendChild(card);
